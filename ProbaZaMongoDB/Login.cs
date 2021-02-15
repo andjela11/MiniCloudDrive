@@ -44,10 +44,8 @@ namespace ProbaZaMongoDB
                     BucketName = usernameTxt.Text
                 });
 
-                MessageBox.Show("Hello " + usernameTxt.Text);
-
                 Form1 form1 = new Form1();
-                form1.Show();
+                form1.ShowDialog();
                 this.Close();
             }
             else
@@ -94,16 +92,7 @@ namespace ProbaZaMongoDB
             var exist = collection.AsQueryable().Any(x => x.Username == txtBoxUsername);
             return exist;
 
-            /*var filter = Builders<Account>.Filter.Eq(x => x.Username, txtBoxUsername);
-            using (var cursor = collection.Find(filter))
-            {
-                var result = cursor.ToList().First();
-                if (result != null)
-                {
-                    return res = true;
-                }
-                return res = false;
-            }*/
+            
 
         }
         private void SignUpBtn_Click(object sender, EventArgs e)
@@ -126,10 +115,12 @@ namespace ProbaZaMongoDB
                 }
                 else
                 {
-                    Account a = new Account(textBoxUserSign.Text, textBoxPassSign.Text);
+                    
+                    Account a = new Account { Username = textBoxUserSign.Text, Password = textBoxPassSign.Text };
                     acc.Add(a);
                     var collection = database.GetCollection<Account>("account");
-                    collection.InsertOne(new Account(textBoxUserSign.Text, textBoxPassSign.Text));
+                    collection.InsertOne(a);
+                    
                     var bucket = new GridFSBucket(database, new GridFSBucketOptions
                     {
                         BucketName = textBoxUserSign.Text

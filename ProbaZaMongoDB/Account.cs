@@ -10,18 +10,13 @@ namespace ProbaZaMongoDB
 {
     class Account
     {
-        private string username;
-        private string password;
+        
 
         public ObjectId id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
 
-        public Account(string username, string pass)
-        {
-            this.username = username;
-            this.password = pass;
-        }
+        
     }
 
 }
