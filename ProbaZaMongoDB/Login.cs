@@ -105,11 +105,11 @@ namespace ProbaZaMongoDB
             else
             {
 
-                if (CheckUsername(textBoxUserSign.Text) || textBoxUserSign.Text == "")
-                {
+               // if (CheckUsername(textBoxUserSign.Text) || textBoxUserSign.Text == "")
+                //{
                     InvalidNameSignUp.Visible = true;
-                }
-                else
+                //}
+                /*else
                 {
                     Account a = new Account(textBoxUserSign.Text, textBoxPassSign.Text);
                     acc.Add(a);
@@ -122,7 +122,7 @@ namespace ProbaZaMongoDB
                     Form1 f = new Form1();
                     f.ShowDialog();
                     this.Close();
-                }
+                }*/
             }
 
 

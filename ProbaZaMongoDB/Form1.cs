@@ -246,11 +246,13 @@ namespace ProbaZaMongoDB
                 
                 if(fileNames != null)
                 {
-                    MessageBox.Show("Fajl " + fileNames.Filename + " je pronadjen");
+                    MessageBox.Show("File " + fileNames.Filename + " was found");
+                    listBox.Items.Clear();
+                    listBox.Items.Add(fileNames.Filename + "      " + fileNames.UploadDateTime + "      " + fileNames.Length + " B");
                 }
                 else
                 {
-                    MessageBox.Show("Nije pronadjen fajl sa zadatim imenom");
+                    MessageBox.Show("There is no file with selected name. Please choose another one.");
                 }
             }
 
@@ -279,10 +281,12 @@ namespace ProbaZaMongoDB
 
                 if (fileNames != null)
                 {
-                    MessageBox.Show("Pronadjen fajl sa zadatim datumom " + fileNames.Filename);
+                    MessageBox.Show("File with selected date is found: " + fileNames.Filename);
+                    listBox.Items.Clear();
+                    listBox.Items.Add(fileNames.Filename + "      " + fileNames.UploadDateTime + "      " + fileNames.Length + " B");
                 }
                 else
-                    MessageBox.Show("Ne postoji fajl sa zadatim datumom");
+                    MessageBox.Show("There is no file with selected date. Please choose another one");
             }
         }
     }
