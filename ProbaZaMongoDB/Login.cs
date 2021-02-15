@@ -71,7 +71,7 @@ namespace ProbaZaMongoDB
 
 
             var filter = Builders<Account>.Filter.Eq(x => x.Username, txtBoxUsername);
-            var result = collection.Find(filter).ToList().First();  /////ne radi
+            var result = collection.Find(filter).ToList().First();  
             
                 if (result.Password == txtBoxPassword)
                 {
