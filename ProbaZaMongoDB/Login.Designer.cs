@@ -201,6 +201,7 @@ namespace ProbaZaMongoDB
             this.passwordTxt.Name = "passwordTxt";
             this.passwordTxt.Size = new System.Drawing.Size(134, 22);
             this.passwordTxt.TabIndex = 20;
+            this.passwordTxt.UseSystemPasswordChar = true;
             // 
             // passLogin
             // 

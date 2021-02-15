@@ -50,53 +50,61 @@ namespace ProbaZaMongoDB
                 form1.Show();
                 this.Close();
             }
-           /* else if (acc[i].Username == usernameTxt.Text && acc[i].Password != passwordTxt.Text)
-            {
-                WrongPassLogin.Visible = true;
-                passwordTxt.Text = "";
-            }
-            else if (acc[i].Username != usernameTxt.Text && acc[i].Password == passwordTxt.Text)
+            else
             {
                 IncorrectUserNameLogin.Visible = true;
+                WrongPassLogin.Visible = true;
                 usernameTxt.Text = "";
-            }*/
-
+                passwordTxt.Text = "";
+            }
         }
         public bool CheckUsernameAndPassword(string txtBoxUsername, string txtBoxPassword)
         {
-            /*ova fja treba da proveri username i password koji su uneti i da li postoje u kolekciji u kojoj se cuvaju informacije o nalogu
-            problem je sto ne treba da se nadju bilo koji username i password,samo da postoje, nego da su to podaci jednog objekta
-            Ovaj query bi bio dobro resenje ali ne moze da se prosledi string
-
-            btw ova fje je prvobitno proveravala samo username da li postoji pa sam htela da probam da li bi bilo bolje ako se sve proveri odjednom
-            */
-
+            bool res;
             var connectionString = "mongodb://localhost/?safe=true";
             MongoClient client = new MongoClient(connectionString);
             MongoServer server = client.GetServer();
             var database = client.GetDatabase("Proba");
 
             var collection = database.GetCollection<Account>("account");
-                var query = Query.And(
-                            Query.EQ("Username", txtBoxUsername),
-                            Query.EQ("Password", txtBoxPassword)
-                            );
+
+
+
+            var filter = Builders<Account>.Filter.Eq(x => x.Username, txtBoxUsername);
+            var result = collection.Find(filter).ToList().First();  /////ne radi
             
+                if (result.Password == txtBoxPassword)
+                {
+                    return res = true;
+                }
+                return res = false;
             
-          //  MongoCursor m = collection.FindAs(query);
 
-            var filter = Builders<Account>.Filter;
-             //   var result = collection.Find(filter).ToString();
+        }
+        public bool CheckUsername(string txtBoxUsername)
+        {
+            bool res;
+            var connectionString = "mongodb://localhost/?safe=true";
+            MongoClient client = new MongoClient(connectionString);
+            MongoServer server = client.GetServer();
+            var database = client.GetDatabase("Proba");
 
-                /* var existsUser = collection.AsQueryable().Any(x => x.Username == txtBoxUsername , x => x.Password == txtBoxPassword);
-                 var existsPass = collection.AsQueryable().Where(x => x.Username == txtBoxUsername )
+            var collection = database.GetCollection<Account>("account");
 
+            var exist = collection.AsQueryable().Any(x => x.Username == txtBoxUsername);
+            return exist;
 
-                 if (existsUser && existsPass)
-                 {
-                     return true;
-                 }*/
-                return false;
+            /*var filter = Builders<Account>.Filter.Eq(x => x.Username, txtBoxUsername);
+            using (var cursor = collection.Find(filter))
+            {
+                var result = cursor.ToList().First();
+                if (result != null)
+                {
+                    return res = true;
+                }
+                return res = false;
+            }*/
+
         }
         private void SignUpBtn_Click(object sender, EventArgs e)
         {
@@ -112,16 +120,16 @@ namespace ProbaZaMongoDB
             else
             {
 
-               // if (CheckUsername(textBoxUserSign.Text) || textBoxUserSign.Text == "")
-                //{
+                if (CheckUsername(textBoxUserSign.Text) || textBoxUserSign.Text == "")
+                {
                     InvalidNameSignUp.Visible = true;
-                //}
-                /*else
+                }
+                else
                 {
                     Account a = new Account(textBoxUserSign.Text, textBoxPassSign.Text);
                     acc.Add(a);
                     var collection = database.GetCollection<Account>("account");
-                    collection.InsertOne(a);
+                    collection.InsertOne(new Account(textBoxUserSign.Text, textBoxPassSign.Text));
                     var bucket = new GridFSBucket(database, new GridFSBucketOptions
                     {
                         BucketName = textBoxUserSign.Text
@@ -129,7 +137,7 @@ namespace ProbaZaMongoDB
                     Form1 f = new Form1();
                     f.ShowDialog();
                     this.Close();
-                }*/
+                }
             }
 
 

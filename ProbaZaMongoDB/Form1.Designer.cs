@@ -80,7 +80,7 @@
             this.btnBrows.Name = "btnBrows";
             this.btnBrows.Size = new System.Drawing.Size(75, 23);
             this.btnBrows.TabIndex = 2;
-            this.btnBrows.Text = "Brows";
+            this.btnBrows.Text = "Browse";
             this.btnBrows.UseVisualStyleBackColor = true;
             this.btnBrows.Click += new System.EventHandler(this.btnBrows_Click);
             // 
