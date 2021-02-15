@@ -122,3 +122,35 @@ D:\Andjela\FAKS\7. SEMESTAR\NAPREDNE BAZE PODATAKA\mongoProjekat\listbox\New fol
 D:\Andjela\FAKS\7. SEMESTAR\NAPREDNE BAZE PODATAKA\mongoProjekat\listbox\New folder\ProbaZaMongoDB\ProbaZaMongoDB\obj\Debug\ProbaZaMongoDB.csproj.CopyComplete
 D:\Andjela\FAKS\7. SEMESTAR\NAPREDNE BAZE PODATAKA\mongoProjekat\listbox\New folder\ProbaZaMongoDB\ProbaZaMongoDB\obj\Debug\ProbaZaMongoDB.exe
 D:\Andjela\FAKS\7. SEMESTAR\NAPREDNE BAZE PODATAKA\mongoProjekat\listbox\New folder\ProbaZaMongoDB\ProbaZaMongoDB\obj\Debug\ProbaZaMongoDB.pdb
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\bin\Debug\mongocrypt.dll
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\bin\Debug\snappy32.dll
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\bin\Debug\snappy64.dll
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\bin\Debug\libzstd.dll
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\bin\Debug\ProbaZaMongoDB.exe.config
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\bin\Debug\ProbaZaMongoDB.exe
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\bin\Debug\ProbaZaMongoDB.pdb
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\bin\Debug\DnsClient.dll
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\bin\Debug\MongoDB.Bson.dll
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\bin\Debug\MongoDB.Driver.Core.dll
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\bin\Debug\MongoDB.Driver.dll
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\bin\Debug\MongoDB.Driver.GridFS.dll
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\bin\Debug\MongoDB.Driver.Legacy.dll
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\bin\Debug\MongoDB.Libmongocrypt.dll
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\bin\Debug\SharpCompress.dll
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\bin\Debug\System.Buffers.dll
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\bin\Debug\DnsClient.xml
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\bin\Debug\MongoDB.Bson.xml
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\bin\Debug\MongoDB.Driver.xml
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\bin\Debug\MongoDB.Driver.Core.xml
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\bin\Debug\MongoDB.Driver.GridFS.xml
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\bin\Debug\MongoDB.Driver.Legacy.xml
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\bin\Debug\System.Buffers.xml
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\obj\Debug\ProbaZaMongoDB.csprojAssemblyReference.cache
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\obj\Debug\ProbaZaMongoDB.Form1.resources
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\obj\Debug\ProbaZaMongoDB.Login.resources
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\obj\Debug\ProbaZaMongoDB.Properties.Resources.resources
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\obj\Debug\ProbaZaMongoDB.csproj.GenerateResource.cache
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\obj\Debug\ProbaZaMongoDB.csproj.CoreCompileInputs.cache
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\obj\Debug\ProbaZaMongoDB.csproj.CopyComplete
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\obj\Debug\ProbaZaMongoDB.exe
+D:\Andjela\Source\Repos\MiniCloudDrive\ProbaZaMongoDB\obj\Debug\ProbaZaMongoDB.pdb

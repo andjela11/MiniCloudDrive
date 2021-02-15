@@ -48,6 +48,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.DateSearchButton = new System.Windows.Forms.Button();
+            this.btnShowAll = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Upload
@@ -239,11 +240,22 @@
             this.DateSearchButton.UseVisualStyleBackColor = true;
             this.DateSearchButton.Click += new System.EventHandler(this.DateSearchButton_Click);
             // 
+            // btnShowAll
+            // 
+            this.btnShowAll.Location = new System.Drawing.Point(22, 397);
+            this.btnShowAll.Name = "btnShowAll";
+            this.btnShowAll.Size = new System.Drawing.Size(81, 24);
+            this.btnShowAll.TabIndex = 28;
+            this.btnShowAll.Text = "Show All";
+            this.btnShowAll.UseVisualStyleBackColor = true;
+            this.btnShowAll.Click += new System.EventHandler(this.btnShowAll_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnShowAll);
             this.Controls.Add(this.DateSearchButton);
             this.Controls.Add(this.dateTimePicker2);
             this.Controls.Add(this.label8);
@@ -295,6 +307,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.Button DateSearchButton;
+        private System.Windows.Forms.Button btnShowAll;
     }
 }
 

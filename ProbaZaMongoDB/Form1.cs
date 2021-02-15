@@ -120,6 +120,18 @@ namespace ProbaZaMongoDB
             var bucket = new GridFSBucket(database);
 
             string fileToDelete = listBox.GetItemText(listBox.SelectedItem);
+            var collection = database.GetCollection<GridFSFileInfo>("fs.files");
+
+            var list = collection.Find(_ => true).ToList();
+            string nameToDelete = "";
+            foreach (var file in list)
+            {
+                if (fileToDelete.Contains(file.Filename))
+                {
+                    nameToDelete = file.Filename;
+
+                }
+            }
 
             if (fileToDelete == "")
             {
@@ -127,7 +139,7 @@ namespace ProbaZaMongoDB
             }
             else
             {
-                var filter = Builders<GridFSFileInfo>.Filter.Eq(x => x.Filename, fileToDelete);
+                var filter = Builders<GridFSFileInfo>.Filter.Eq(x => x.Filename, nameToDelete);
                 using (var cursor = bucket.Find(filter))
                 {
                     var fileInfo = cursor.ToList().FirstOrDefault();
@@ -147,7 +159,18 @@ namespace ProbaZaMongoDB
             var bucket = new GridFSBucket(database);
 
             string fileToRename = listBox.GetItemText(listBox.SelectedItem);
+            var collection = database.GetCollection<GridFSFileInfo>("fs.files");
 
+            var list = collection.Find(_ => true).ToList();
+            string nameToRename = "";
+            foreach (var file in list)
+            {
+                if (fileToRename.Contains(file.Filename))
+                {
+                    nameToRename = file.Filename;
+
+                }
+            }
             if (fileToRename == "")
             {
                 MessageBox.Show("Please select the file to rename!");
@@ -159,13 +182,14 @@ namespace ProbaZaMongoDB
             else
             {
                 string newFileName = textNewFName.Text;
-                var filter = Builders<GridFSFileInfo>.Filter.Eq(x => x.Filename, fileToRename);
+                var filter = Builders<GridFSFileInfo>.Filter.Eq(x => x.Filename, nameToRename);
                 using (var cursor = bucket.Find(filter))
                 {
                     var fileInfo = cursor.ToList().FirstOrDefault();
                     bucket.Rename(fileInfo.Id, newFileName);
                     UpdateListBox();
                     newFileName = "";
+                    textNewFName.Text = newFileName;
                 }
             }
         }
@@ -288,6 +312,11 @@ namespace ProbaZaMongoDB
                 else
                     MessageBox.Show("There is no file with selected date. Please choose another one");
             }
+        }
+
+        private void btnShowAll_Click(object sender, EventArgs e)
+        {
+            UpdateListBox();
         }
     }
 }

@@ -76,20 +76,27 @@ namespace ProbaZaMongoDB
             MongoServer server = client.GetServer();
             var database = client.GetDatabase("Proba");
 
-            // var collection = database.GetCollection<Account>("account").Find(Query.And(Query.EQ("Username", txtBoxUsername)));
+            var collection = database.GetCollection<Account>("account");
+                var query = Query.And(
+                            Query.EQ("Username", txtBoxUsername),
+                            Query.EQ("Password", txtBoxPassword)
+                            );
+            
+            
+          //  MongoCursor m = collection.FindAs(query);
 
-            /*var filter = Builders<Account>.Filter.Eq(x => x.Username, txtBoxField);
-            var result = collection.Find(filter).ToString();*/
+            var filter = Builders<Account>.Filter;
+             //   var result = collection.Find(filter).ToString();
 
-            /* var existsUser = collection.AsQueryable().Any(x => x.Username == txtBoxUsername , x => x.Password == txtBoxPassword);
-             var existsPass = collection.AsQueryable().Where(x => x.Username == txtBoxUsername )
+                /* var existsUser = collection.AsQueryable().Any(x => x.Username == txtBoxUsername , x => x.Password == txtBoxPassword);
+                 var existsPass = collection.AsQueryable().Where(x => x.Username == txtBoxUsername )
 
 
-             if (existsUser && existsPass)
-             {
-                 return true;
-             }*/
-            return false;
+                 if (existsUser && existsPass)
+                 {
+                     return true;
+                 }*/
+                return false;
         }
         private void SignUpBtn_Click(object sender, EventArgs e)
         {
