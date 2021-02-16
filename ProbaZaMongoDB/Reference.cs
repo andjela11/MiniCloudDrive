@@ -8,15 +8,12 @@ using MongoDB.Driver;
 
 namespace ProbaZaMongoDB
 {
-    class Account
+    class Reference
     {
-        
-
-        public ObjectId id { get; set; }
+        public ObjectId Id { get; set; }
         public string Username { get; set; }
-        public string Password { get; set; }
+        //public MongoDBRef Account { get; set; }
+        public string FileID { get; set; }
 
-        //public List<Reference> Reference { get; set; }
     }
-
 }

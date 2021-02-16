@@ -23,6 +23,8 @@ namespace ProbaZaMongoDB
     
     public partial class Form1 : Form
     {
+       
+      
         public Form1()
         {
             InitializeComponent();
@@ -42,11 +44,20 @@ namespace ProbaZaMongoDB
                 var database = client.GetDatabase("Proba");
 
 
-                var bucket = new GridFSBucket(database);
+                var bucket = new GridFSBucket(database, new GridFSBucketOptions
+                {
+                    BucketName = DisplayUser.Text
+                });
                 string fileToUpload = textName.Text;
                 FileStream source = new FileStream(textPath.Text, FileMode.Open);
                 /*            MemoryStream source = new MemoryStream(Encoding.UTF8.GetBytes(@textPath.Text));*/
                 var id = bucket.UploadFromStream(fileToUpload, source);
+                //Account account = new Account();
+                //account.Username = DisplayUser.Text;
+                Reference reference = new Reference { FileID = id.ToString(), Username = DisplayUser.Text };
+                var ReferenceCollection = database.GetCollection<Reference>("reference");
+                ReferenceCollection.InsertOne(reference);
+                // account.Reference.Add(reference);
                 UpdateListBox();
                 MessageBox.Show("File " + fileToUpload + " has been uploaded!");
             }
@@ -228,7 +239,16 @@ namespace ProbaZaMongoDB
             MongoServer server = client.GetServer();
             var database = client.GetDatabase("Proba");
 
-            var collection = database.GetCollection<GridFSFileInfo>("fs.files");
+            var RefColl = database.GetCollection<Reference>("reference");
+
+            var bucket = new GridFSBucket(database, new GridFSBucketOptions
+            {
+                BucketName = DisplayUser.Text
+            }) ;
+
+            var filter = Builders<Reference>.Filter.Eq(x => x.Username, DisplayUser.Text);
+
+            var collection = database.GetCollection<GridFSFileInfo>(DisplayUser.Text+".files");
 
             var list = collection.Find(_ => true).ToList();
 
@@ -328,6 +348,11 @@ namespace ProbaZaMongoDB
         private void btnShowAll_Click(object sender, EventArgs e)
         {
             UpdateListBox();
+        }
+
+        public void DisplayUserFunc(string text)
+        {
+            DisplayUser.Text = text;
         }
     }
 }

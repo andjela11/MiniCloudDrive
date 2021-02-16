@@ -25,6 +25,7 @@ namespace ProbaZaMongoDB
     public partial class Login : Form
     {
         List<Account> acc = new List<Account>();
+        Form1 form1 = new Form1();
         public Login()
         {
             InitializeComponent();
@@ -44,7 +45,7 @@ namespace ProbaZaMongoDB
                     BucketName = usernameTxt.Text
                 });
 
-                Form1 form1 = new Form1();
+                form1.DisplayUserFunc(usernameTxt.Text);
                 form1.ShowDialog();
                 this.Close();
             }
@@ -116,17 +117,25 @@ namespace ProbaZaMongoDB
                 else
                 {
                     
-                    Account a = new Account { Username = textBoxUserSign.Text, Password = textBoxPassSign.Text };
-                    acc.Add(a);
-                    var collection = database.GetCollection<Account>("account");
-                    collection.InsertOne(a);
-                    
                     var bucket = new GridFSBucket(database, new GridFSBucketOptions
                     {
-                        BucketName = textBoxUserSign.Text
+                        BucketName = textBoxUserSign.Text,
+                        ChunkSizeBytes = 1048576,
+                        WriteConcern = WriteConcern.WMajority,
+                        ReadPreference = ReadPreference.Secondary
                     });
-                    Form1 f = new Form1();
-                    f.ShowDialog();
+
+                    
+                    var AccountCollection = database.GetCollection<Account>("account");
+                    
+
+                    Account a = new Account { Username = textBoxUserSign.Text, Password = textBoxPassSign.Text};
+                    acc.Add(a);
+                    AccountCollection.InsertOne(a);
+                   
+
+                    form1.DisplayUserFunc(textBoxUserSign.Text);
+                    form1.ShowDialog();
                     this.Close();
                 }
             }
