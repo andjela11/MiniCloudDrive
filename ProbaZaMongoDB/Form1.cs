@@ -50,14 +50,13 @@ namespace ProbaZaMongoDB
                 });
                 string fileToUpload = textName.Text;
                 FileStream source = new FileStream(textPath.Text, FileMode.Open);
-                /*            MemoryStream source = new MemoryStream(Encoding.UTF8.GetBytes(@textPath.Text));*/
+               
                 var id = bucket.UploadFromStream(fileToUpload, source);
-                //Account account = new Account();
-                //account.Username = DisplayUser.Text;
+                
                 Reference reference = new Reference { FileID = id.ToString(), Username = DisplayUser.Text };
                 var ReferenceCollection = database.GetCollection<Reference>("reference");
                 ReferenceCollection.InsertOne(reference);
-                // account.Reference.Add(reference);
+                
                 UpdateListBox();
                 MessageBox.Show("File " + fileToUpload + " has been uploaded!");
             }
@@ -72,7 +71,7 @@ namespace ProbaZaMongoDB
 
             var bucket = new GridFSBucket(database);
             string fileToDownload = listBox.GetItemText(listBox.SelectedItem);
-            var collection = database.GetCollection<GridFSFileInfo>("fs.files");
+            var collection = database.GetCollection<GridFSFileInfo>(DisplayUser.Text+".files");
 
             var list = collection.Find(_ => true).ToList();
             string nameToDownload = "";
@@ -99,7 +98,7 @@ namespace ProbaZaMongoDB
                 using (var newFs = new FileStream(where, FileMode.Create))
                 {
                     var t1 = bucket.DownloadToStreamByNameAsync(nameToDownload, newFs);
-                    Task.WaitAll(t1);
+                    
                     newFs.Flush();
                     newFs.Close();
                     UpdateListBox();
@@ -139,19 +138,23 @@ namespace ProbaZaMongoDB
             MongoServer server = client.GetServer();
             var database = client.GetDatabase("Proba");
 
-            var bucket = new GridFSBucket(database);
+            var bucket = new GridFSBucket(database, new GridFSBucketOptions
+            {
+                BucketName = DisplayUser.Text
+            });
 
             string fileToDelete = listBox.GetItemText(listBox.SelectedItem);
-            var collection = database.GetCollection<GridFSFileInfo>("fs.files");
+            var collection = database.GetCollection<GridFSFileInfo>(DisplayUser.Text+".files");
 
             var list = collection.Find(_ => true).ToList();
             string nameToDelete = "";
+            var idToDelete = "";
             foreach (var file in list)
             {
                 if (fileToDelete.Contains(file.Filename))
                 {
                     nameToDelete = file.Filename;
-
+                    idToDelete = file.Id.ToString();
                 }
             }
 
@@ -161,7 +164,7 @@ namespace ProbaZaMongoDB
             }
             else
             {
-                var filter = Builders<GridFSFileInfo>.Filter.Eq(x => x.Filename, nameToDelete);
+                var filter = Builders<GridFSFileInfo>.Filter.Eq(x => x.Filename, nameToDelete );
                 using (var cursor = bucket.Find(filter))
                 {
                     var fileInfo = cursor.ToList().FirstOrDefault();
@@ -178,10 +181,13 @@ namespace ProbaZaMongoDB
             MongoServer server = client.GetServer();
             var database = client.GetDatabase("Proba");
 
-            var bucket = new GridFSBucket(database);
+            var bucket = new GridFSBucket(database, new GridFSBucketOptions
+            {
+                BucketName = DisplayUser.Text
+            });
 
             string fileToRename = listBox.GetItemText(listBox.SelectedItem);
-            var collection = database.GetCollection<GridFSFileInfo>("fs.files");
+            var collection = database.GetCollection<GridFSFileInfo>(DisplayUser.Text+".files");
 
             var list = collection.Find(_ => true).ToList();
             string nameToRename = "";
@@ -288,11 +294,14 @@ namespace ProbaZaMongoDB
             MongoServer server = client.GetServer();
             var database = client.GetDatabase("Proba");
 
-            var collection = database.GetCollection<GridFSFileInfo>("fs.files");
+            var collection = database.GetCollection<GridFSFileInfo>(DisplayUser+".files");
             string name = txtBoxNameSearch.Text;
-            //var file = Query.EQ("filename", name);
+           
 
-            var bucket = new GridFSBucket(database);
+            var bucket = new GridFSBucket(database, new GridFSBucketOptions
+            {
+                BucketName = DisplayUser.Text
+            });
             var filter = Builders<GridFSFileInfo>.Filter.Eq(x => x.Filename, name);
             
             using (var cursor = bucket.Find(filter))
@@ -301,7 +310,6 @@ namespace ProbaZaMongoDB
                 
                 if(fileNames != null)
                 {
-                    MessageBox.Show("File " + fileNames.Filename + " was found");
                     listBox.Items.Clear();
                     listBox.Items.Add(fileNames.Filename + "      " + fileNames.UploadDateTime + "      " + fileNames.Length + " B");
                 }
@@ -321,8 +329,11 @@ namespace ProbaZaMongoDB
             MongoServer server = client.GetServer();
             var database = client.GetDatabase("Proba");
 
-            var bucket = new GridFSBucket(database);
-            var collection = database.GetCollection<GridFSFileInfo>("fs.files");
+            var bucket = new GridFSBucket(database, new GridFSBucketOptions
+            {
+                BucketName = DisplayUser.Text
+            });
+            var collection = database.GetCollection<GridFSFileInfo>(DisplayUser.Text+".files");
             int year = this.dateTimePicker2.Value.Year;
             int month = this.dateTimePicker2.Value.Month;
             int day = this.dateTimePicker2.Value.Day;
@@ -332,13 +343,15 @@ namespace ProbaZaMongoDB
 
             using (var cursor = bucket.Find(filter))
             {
-                var fileNames = cursor.ToList().FirstOrDefault();
+                var fileNames = cursor.ToList();
 
                 if (fileNames != null)
                 {
-                    MessageBox.Show("File with selected date is found: " + fileNames.Filename);
                     listBox.Items.Clear();
-                    listBox.Items.Add(fileNames.Filename + "      " + fileNames.UploadDateTime + "      " + fileNames.Length + " B");
+                    foreach (var file in fileNames)
+                    {
+                        listBox.Items.Add(file.Filename + "      " + file.UploadDateTime + "      " + file.Length + " B");
+                    }
                 }
                 else
                     MessageBox.Show("There is no file with selected date. Please choose another one");

@@ -12,7 +12,7 @@ namespace ProbaZaMongoDB
     {
         public ObjectId Id { get; set; }
         public string Username { get; set; }
-        //public MongoDBRef Account { get; set; }
+        
         public string FileID { get; set; }
 
     }
