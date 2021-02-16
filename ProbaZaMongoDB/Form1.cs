@@ -61,7 +61,18 @@ namespace ProbaZaMongoDB
 
             var bucket = new GridFSBucket(database);
             string fileToDownload = listBox.GetItemText(listBox.SelectedItem);
+            var collection = database.GetCollection<GridFSFileInfo>("fs.files");
 
+            var list = collection.Find(_ => true).ToList();
+            string nameToDownload = "";
+            foreach (var file in list)
+            {
+                if (fileToDownload.Contains(file.Filename))
+                {
+                    nameToDownload = file.Filename;
+
+                }
+            }
             if (fileToDownload == "")
             {
                 MessageBox.Show("Please select a file to download!");
@@ -72,16 +83,16 @@ namespace ProbaZaMongoDB
             }
             else
             { 
-                string where = (textPathTo.Text + "\\" + fileToDownload);
+                string where = (textPathTo.Text + "\\" + nameToDownload);
 
                 using (var newFs = new FileStream(where, FileMode.Create))
                 {
-                    var t1 = bucket.DownloadToStreamByNameAsync(fileToDownload, newFs);
+                    var t1 = bucket.DownloadToStreamByNameAsync(nameToDownload, newFs);
                     Task.WaitAll(t1);
                     newFs.Flush();
                     newFs.Close();
                     UpdateListBox();
-                    MessageBox.Show("File "+ fileToDownload + " has been downloaded!");
+                    MessageBox.Show("File "+ nameToDownload + " has been downloaded!");
                 }
             }
             
